@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-exporter
+  labels:
+    app: postgres-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-exporter
+  template:
+    metadata:
+      labels:
+        app: postgres-exporter
+    spec:
+      containers:
+      - name: postgres-exporter
+        image: prometheuscommunity/postgres-exporter:v0.10.0
+        env:
+        - name: DATA_SOURCE_NAME
+          value: "postgresql://root:rootpassword@postgresql.default.svc.cluster.local:5432/transactions?sslmode=disable"
+        ports:
+        - containerPort: 9187

@@ -1,0 +1,7 @@
+resource_group_name = "aks-rg"
+location            = "westus2"
+cluster_name        = "demo-aks-cluster"
+dns_prefix          = "aks-multizone"
+kubernetes_version  = "1.33.0"
+node_count          = "1"
+vm_size             = "Standard_D2s_v3"

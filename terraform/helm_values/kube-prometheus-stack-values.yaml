@@ -1,0 +1,11 @@
+grafana:
+  service:
+    type: LoadBalancer
+
+prometheus:
+  service:
+    type: LoadBalancer
+    port: 9090
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: /
+
