@@ -18,18 +18,21 @@ Before starting, ensure you have:
 
 ## Folder Structure
 
+## Folder Structure
+
+```text
 .
-├── k8s/ # Kubernetes manifests for Go app & Postgres
-│ ├── go-app-deployment.yaml
-│ ├── go-app-service.yaml
-│ ├── go-app-ingress.yaml
-│ └── postgres-secret.yaml
-├── postgres-exporter/ # Prometheus Postgres exporter manifests
-│ └── postgres-exporter.yaml
-├── helm_values/
-│ ├── nginx-values.yaml
-│ └── kube-prometheus-stack-values.yaml
-└── main.tf # Terraform infrastructure code
+├── k8s/                     # Kubernetes manifests for Go app & Postgres
+│   ├── go-app-deployment.yaml
+│   ├── go-app-service.yaml
+│   ├── go-app-ingress.yaml
+│   └── postgres-secret.yaml
+├── postgres-exporter/        # Prometheus Postgres exporter manifests
+│   └── postgres-exporter.yaml
+├── helm_values/              # Custom Helm values
+│   ├── nginx-values.yaml
+│   └── kube-prometheus-stack-values.yaml
+└── main.tf                   # Terraform infrastructure code
 
 ---
 
@@ -139,4 +142,5 @@ Also hpa is enabled, run kubectl get hpa to fetch the current configs
 * Temporary secrets may appear during certificate issuance; final TLS secret is created automatically  
 * Postgres exporter collects metrics for Prometheus/Grafana dashboards
 * demo.<nginx loadbalancer ip>.nip.io have used this host for demo, replace the nginx ip after deployment
+
 
