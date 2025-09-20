@@ -139,3 +139,4 @@ Also hpa is enabled, run kubectl get hpa to fetch the current configs
 * Temporary secrets may appear during certificate issuance; final TLS secret is created automatically  
 * Postgres exporter collects metrics for Prometheus/Grafana dashboards
 * demo.<nginx loadbalancer ip>.nip.io have used this host for demo, replace the nginx ip after deployment
+
