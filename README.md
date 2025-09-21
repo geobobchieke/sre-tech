@@ -1,22 +1,21 @@
 # AKS Go Application Demo
 
-This demo demonstrates deploying a **Go application with PostgreSQL backend** on **Azure Kubernetes Service (AKS)**, using **Azure Container Registry (ACR)** for container images, **NGINX Ingress** for routing, **Cert-Manager** for TLS, and **Prometheus/Grafana** for monitoring.  
+This demo showcases deploying a Go application with a PostgreSQL backend on Azure Kubernetes Service (AKS).  
+It leverages Azure Container Registry (ACR) for container images, NGINX Ingress for routing, Cert-Manager for TLS certificates, and Prometheus/Grafana for observability.  
 
 ---
 
-## Prerequisites
+##  Prerequisites
 
-Before starting, ensure you have:
+Ensure you have the following tools installed and configured:
 
-* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) installed and logged in  
-* [Terraform](https://www.terraform.io/downloads) installed  
-* [kubectl](https://kubernetes.io/docs/tasks/tools/) installed and configured  
-* [Helm](https://helm.sh/docs/intro/install/) installed  
-* Docker installed and running  
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)  
+- [Terraform](https://www.terraform.io/downloads)  
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)  
+- [Helm](https://helm.sh/docs/intro/install/)  
+- Docker (running and authenticated)  
 
 ---
-
-## Folder Structure
 
 ## Folder Structure
 
@@ -40,15 +39,15 @@ Before starting, ensure you have:
 
 Terraform provisions:
 
-* **Resource Group**  
-* **Virtual Network & Subnet** for AKS  
-* **AKS Cluster** with:
+* Resource Group 
+* Virtual Network & Subnet for AKS  
+* AKS Cluster with:
   * 1 system node pool
   * 1 workload node pool (autoscaling enabled, zones 1-3)  
-* **NGINX Ingress Controller** using Helm  
-* **Prometheus/Grafana Stack** using Helm  
-* **Azure Container Registry (ACR)**  
-* **Role Assignment** for AKS managed identity to pull images from ACR  
+* NGINX Ingress Controller using Helm  
+* Prometheus/Grafana Stack using Helm  
+* Azure Container Registry (ACR)  
+* Role Assignment for AKS managed identity to pull images from ACR  
 
 ### Apply Terraform
 
@@ -60,16 +59,15 @@ terraform apply
 ---
 
 ## Helm Deployments via Terraform
-
 ## Monitoring
 
 The following components are deployed automatically by Terraform using Helm:
 
-* **NGINX Ingress Controller** (`nginx-ingress` namespace)  
-* **Prometheus & Grafana Stack** (`monitoring` namespace)
+* NGINX Ingress Controller (`nginx-ingress` namespace)  
+* Prometheus & Grafana Stack (`monitoring` namespace)
 
-**Access These Services:**  
-* All services are exposed via **LoadBalancer**.  
+Access These Services:  
+* All services are exposed via LoadBalancer.  
 * To get the external IP:
 kubectl get svc -n nginx-ingress
 
@@ -128,7 +126,7 @@ All manifests are stored in the `k8s/` folder:
 
 ## Deploying the Go Application
 
-**Apply manifests in go/k8s folder**
+Apply manifests in go/k8s folder
 
 ```bash
 kubectl apply -f go/k8s/
@@ -137,10 +135,11 @@ Also hpa is enabled, run kubectl get hpa to fetch the current configs
 
 # Notes
 
-* Workload node pool uses **autoscaling**: min 1, max 3 nodes  
-* Application container is pulled securely from ACR using **AKS Managed Identity + Role Assignment**  
+* Workload node pool uses autoscaling: min 1, max 3 nodes  
+* Application container is pulled securely from ACR using AKS Managed Identity + Role Assignment  
 * Temporary secrets may appear during certificate issuance; final TLS secret is created automatically  
 * Postgres exporter collects metrics for Prometheus/Grafana dashboards
 * demo.<nginx loadbalancer ip>.nip.io have used this host for demo, replace the nginx ip after deployment
+
 
 
